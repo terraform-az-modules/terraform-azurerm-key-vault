@@ -13,6 +13,7 @@ module "labels" {
   deployment_mode = var.deployment_mode
   extra_tags      = var.extra_tags
 }
+
 ##-----------------------------------------------------------------------------
 # Key Vault -  Create a Key Vault in the specified resource group
 ##-----------------------------------------------------------------------------
@@ -154,11 +155,10 @@ resource "azurerm_monitor_diagnostic_setting" "pe_kv_nic" {
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
   log_analytics_workspace_id     = var.log_analytics_workspace_id
   log_analytics_destination_type = var.log_analytics_destination_type
-  dynamic "metric" {
+  dynamic "enabled_metric" {
     for_each = var.metric_enabled ? ["AllMetrics"] : []
     content {
-      category = metric.value
-      enabled  = true
+      category = enabled_metric.value
     }
   }
   lifecycle {
@@ -189,6 +189,5 @@ resource "azurerm_key_vault_managed_hardware_security_module" "keyvault_hsm" {
       default_action = acl.value.default_action
     }
   }
-
   tags = module.labels.tags
 }
