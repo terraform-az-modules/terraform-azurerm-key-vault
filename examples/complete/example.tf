@@ -6,7 +6,7 @@ data "azurerm_client_config" "current_client_config" {}
 
 module "resource_group" {
   source      = "terraform-az-modules/resource-group/azure"
-  version     = "1.0.0"
+  version     = "1.0.1"
   name        = "keyapp"
   environment = "test"
   label_order = ["environment", "name", ]
