@@ -2,7 +2,7 @@
 # Standard Tagging Module – Applies standard tags to all resources for traceability
 ##-----------------------------------------------------------------------------
 module "labels" {
-  source          = "terraform-az-modules/tags/azure"
+  source          = "terraform-az-modules/labels/azure"
   version         = "1.0.0"
   name            = var.custom_name == null ? var.name : var.custom_name
   location        = var.location
@@ -13,7 +13,6 @@ module "labels" {
   deployment_mode = var.deployment_mode
   extra_tags      = var.extra_tags
 }
-
 ##-----------------------------------------------------------------------------
 # Key Vault -  Create a Key Vault in the specified resource group
 ##-----------------------------------------------------------------------------
@@ -26,7 +25,7 @@ resource "azurerm_key_vault" "key_vault" {
   tenant_id                       = data.azurerm_client_config.current_client_config.tenant_id
   purge_protection_enabled        = var.purge_protection_enabled
   soft_delete_retention_days      = var.soft_delete_retention_days
-  enable_rbac_authorization       = var.enable_rbac_authorization
+  rbac_authorization_enabled      = var.enable_rbac_authorization
   public_network_access_enabled   = var.public_network_access_enabled
   sku_name                        = var.sku_name
   enabled_for_deployment          = var.enabled_for_deployment
