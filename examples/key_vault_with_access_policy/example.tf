@@ -5,8 +5,8 @@ provider "azurerm" {
 data "azurerm_client_config" "current_client_config" {}
 
 module "resource_group" {
-  source      = "terraform-az-modules/resource-group/azure"
-  version     = "1.0.0"
+  source      = "terraform-az-modules/resource-group/azurerm"
+  version     = "1.0.3"
   name        = "app"
   environment = "test"
   label_order = ["environment", "name", ]
@@ -14,8 +14,8 @@ module "resource_group" {
 }
 
 module "vnet" {
-  source              = "terraform-az-modules/vnet/azure"
-  version             = "1.0.0"
+  source              = "terraform-az-modules/vnet/azurerm"
+  version             = "1.0.3"
   name                = "app"
   environment         = "test"
   label_order         = ["name", "environment"]
@@ -25,8 +25,8 @@ module "vnet" {
 }
 
 module "subnet" {
-  source               = "terraform-az-modules/subnet/azure"
-  version              = "1.0.0"
+  source               = "terraform-az-modules/subnet/azurerm"
+  version              = "1.0.1"
   environment          = "test"
   label_order          = ["name", "environment", ]
   resource_group_name  = module.resource_group.resource_group_name
@@ -54,8 +54,8 @@ module "subnet" {
 }
 
 module "log-analytics" {
-  source                           = "clouddrove/log-analytics/azure"
-  version                          = "2.0.0"
+  source                           = "clouddrove/log-analytics/azurerm"
+  version                          = "1.0.2"
   name                             = "app"
   environment                      = "test"
   label_order                      = ["name", "environment"]
