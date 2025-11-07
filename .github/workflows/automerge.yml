@@ -4,7 +4,8 @@ on:
 jobs:
   auto-merge:
     uses: clouddrove/github-shared-workflows/.github/workflows/auto_merge.yml@master
+    with:
+      azure_cloud: true
+      tfchecks_azure: '["pr-validation / 📝 Validate PR title", "pr-validation / 🧾 Validate Commit Messages", "tf-lint / tflint"]'
     secrets:
       GITHUB: ${{ secrets.GITHUB }}
-    with:
-      tfcheck: 'examples/complete/**'
