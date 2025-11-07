@@ -54,7 +54,7 @@ module "subnet" {
 }
 
 module "log-analytics" {
-  source                           = "clouddrove/log-analytics/azurerm"
+  source                           = "terraform-az-modules/log-analytics/azurerm"
   version                          = "1.0.2"
   name                             = "app"
   environment                      = "test"
@@ -67,7 +67,7 @@ module "log-analytics" {
 }
 
 module "private-dns-zone" {
-  source              = "git::https://github.com/terraform-az-modules/terraform-azure-private-dns.git?ref=feat/beta"
+  source              = "terraform-az-modules/private-dns/azurerm"
   resource_group_name = module.resource_group.resource_group_name
   private_dns_config = [
     {
