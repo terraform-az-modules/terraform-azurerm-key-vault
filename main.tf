@@ -2,8 +2,13 @@
 # Standard Tagging Module – Applies standard tags to all resources for traceability
 ##-----------------------------------------------------------------------------
 module "labels" {
+<<<<<<< HEAD
   source          = "terraform-az-modules/tags/azurerm"
   version         = "1.0.2"
+=======
+  source          = "terraform-az-modules/labels/azure"
+  version         = "1.0.0"
+>>>>>>> c5acbce0791c2eaf634a2c4c7c5767fda18f2a16
   name            = var.custom_name == null ? var.name : var.custom_name
   location        = var.location
   environment     = var.environment
@@ -26,7 +31,7 @@ resource "azurerm_key_vault" "key_vault" {
   tenant_id                       = data.azurerm_client_config.current_client_config.tenant_id
   purge_protection_enabled        = var.purge_protection_enabled
   soft_delete_retention_days      = var.soft_delete_retention_days
-  enable_rbac_authorization       = var.enable_rbac_authorization
+  rbac_authorization_enabled      = var.enable_rbac_authorization
   public_network_access_enabled   = var.public_network_access_enabled
   sku_name                        = var.sku_name
   enabled_for_deployment          = var.enabled_for_deployment
@@ -155,11 +160,10 @@ resource "azurerm_monitor_diagnostic_setting" "pe_kv_nic" {
   eventhub_authorization_rule_id = var.eventhub_authorization_rule_id
   log_analytics_workspace_id     = var.log_analytics_workspace_id
   log_analytics_destination_type = var.log_analytics_destination_type
-  dynamic "metric" {
+  dynamic "enabled_metric" {
     for_each = var.metric_enabled ? ["AllMetrics"] : []
     content {
-      category = metric.value
-      enabled  = true
+      category = enabled_metric.value
     }
   }
   lifecycle {
@@ -190,6 +194,5 @@ resource "azurerm_key_vault_managed_hardware_security_module" "keyvault_hsm" {
       default_action = acl.value.default_action
     }
   }
-
   tags = module.labels.tags
 }
