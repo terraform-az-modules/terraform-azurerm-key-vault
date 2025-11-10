@@ -2,13 +2,8 @@
 # Standard Tagging Module – Applies standard tags to all resources for traceability
 ##-----------------------------------------------------------------------------
 module "labels" {
-<<<<<<< HEAD
   source          = "terraform-az-modules/tags/azurerm"
   version         = "1.0.2"
-=======
-  source          = "terraform-az-modules/labels/azure"
-  version         = "1.0.0"
->>>>>>> c5acbce0791c2eaf634a2c4c7c5767fda18f2a16
   name            = var.custom_name == null ? var.name : var.custom_name
   location        = var.location
   environment     = var.environment
