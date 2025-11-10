@@ -68,6 +68,7 @@ module "log-analytics" {
 
 module "private-dns-zone" {
   source              = "terraform-az-modules/private-dns/azurerm"
+  version             = "1.0.2"
   resource_group_name = module.resource_group.resource_group_name
   private_dns_config = [
     {
