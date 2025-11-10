@@ -4,31 +4,41 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current_client_config" {}
 
+# ------------------------------------------------------------------------------
+# Resource Group
+# ------------------------------------------------------------------------------
 module "resource_group" {
   source      = "terraform-az-modules/resource-group/azure"
-  version     = "1.0.0"
-  name        = "app"
-  environment = "test"
-  label_order = ["environment", "name", ]
-  location    = "Canada Central"
+  version     = "1.0.1"
+  name        = "core"
+  environment = "dev"
+  location    = "centralus"
+  label_order = ["name", "environment", "location"]
 }
 
+# ------------------------------------------------------------------------------
+# Virtual Network
+# ------------------------------------------------------------------------------
 module "vnet" {
   source              = "terraform-az-modules/vnet/azure"
-  version             = "1.0.0"
-  name                = "app"
-  environment         = "test"
-  label_order         = ["name", "environment"]
+  version             = "1.0.1"
+  name                = "core"
+  environment         = "dev"
+  label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
   address_spaces      = ["10.0.0.0/16"]
 }
 
+
+# ------------------------------------------------------------------------------
+# Subnet
+# ------------------------------------------------------------------------------
 module "subnet" {
   source               = "terraform-az-modules/subnet/azure"
   version              = "1.0.0"
-  environment          = "test"
-  label_order          = ["name", "environment", ]
+  environment          = "dev"
+  label_order          = ["name", "environment", "location"]
   resource_group_name  = module.resource_group.resource_group_name
   location             = module.resource_group.resource_group_location
   virtual_network_name = module.vnet.vnet_name
@@ -38,50 +48,48 @@ module "subnet" {
       subnet_prefixes = ["10.0.1.0/24"]
     }
   ]
-  enable_route_table = true
-  route_tables = [
-    {
-      name = "route-table"
-      routes = [
-        {
-          name           = "route-table"
-          address_prefix = "0.0.0.0/0"
-          next_hop_type  = "Internet"
-        }
-      ]
-    }
-  ]
 }
 
+# ------------------------------------------------------------------------------
+# Log Analytics
+# ------------------------------------------------------------------------------
 module "log-analytics" {
-  source                           = "clouddrove/log-analytics/azure"
-  version                          = "2.0.0"
-  name                             = "app"
-  environment                      = "test"
-  label_order                      = ["name", "environment"]
-  create_log_analytics_workspace   = true
-  log_analytics_workspace_sku      = "PerGB2018"
-  log_analytics_workspace_id       = module.log-analytics.workspace_id
-  resource_group_name              = module.resource_group.resource_group_name
-  log_analytics_workspace_location = module.resource_group.resource_group_location
+  source                      = "terraform-az-modules/log-analytics/azure"
+  version                     = "1.0.1"
+  name                        = "core"
+  environment                 = "dev"
+  label_order                 = ["name", "environment", "location"]
+  log_analytics_workspace_sku = "PerGB2018"
+  resource_group_name         = module.resource_group.resource_group_name
+  location                    = module.resource_group.resource_group_location
 }
 
-module "private-dns-zone" {
-  source              = "git::https://github.com/terraform-az-modules/terraform-azure-private-dns.git?ref=feat/beta"
+# ------------------------------------------------------------------------------
+# Private DNS Zone
+# ------------------------------------------------------------------------------
+module "private_dns_zone" {
+  source              = "terraform-az-modules/private-dns/azure"
+  version             = "1.0.0"
+  name                = "core"
+  environment         = "dev"
+  label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.resource_group_location
   private_dns_config = [
     {
       resource_type = "key_vault"
       vnet_ids      = [module.vnet.vnet_id]
-    },
+    }
   ]
 }
 
-#Key Vault
+# ------------------------------------------------------------------------------
+# Key Vault
+# ------------------------------------------------------------------------------
 module "vault" {
   source                        = "../.."
-  name                          = "app"
-  environment                   = "test"
+  name                          = "core"
+  environment                   = "dev"
   label_order                   = ["name", "environment", "location"]
   resource_group_name           = module.resource_group.resource_group_name
   location                      = module.resource_group.resource_group_location

@@ -6,8 +6,8 @@ on:
 
 jobs:
   release:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tag-release.yaml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tag-release.yml@master
     with:
       target_branch: master
     secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB: ${{ secrets.GITHUB_TOKEN }}
