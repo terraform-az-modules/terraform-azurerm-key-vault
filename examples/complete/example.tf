@@ -69,7 +69,7 @@ module "log-analytics" {
 # ------------------------------------------------------------------------------
 module "private_dns_zone" {
   source              = "terraform-az-modules/private-dns/azure"
-  version             = "1.0.0"
+  version             = "1.0.1"
   name                = "core"
   environment         = "dev"
   label_order         = ["name", "environment", "location"]
