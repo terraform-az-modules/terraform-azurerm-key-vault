@@ -12,8 +12,8 @@ module "resource_group" {
   version     = "1.0.3"
   name        = "app"
   environment = "test"
-  label_order = ["environment", "name", ]
-  location    = "Canada Central"
+  label_order = ["environment", "name", "location"]
+  location    = "canadacentral"
 }
 
 # ------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ module "vnet" {
   version             = "1.0.3"
   name                = "app"
   environment         = "test"
-  label_order         = ["name", "environment"]
+  label_order         = ["name", "environment", "location"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
   address_spaces      = ["10.0.0.0/16"]
@@ -38,7 +38,7 @@ module "subnet" {
   source               = "terraform-az-modules/subnet/azurerm"
   version              = "1.0.1"
   environment          = "test"
-  label_order          = ["name", "environment", ]
+  label_order          = ["name", "environment", "location"]
   resource_group_name  = module.resource_group.resource_group_name
   location             = module.resource_group.resource_group_location
   virtual_network_name = module.vnet.vnet_name
@@ -58,19 +58,21 @@ module "log-analytics" {
   version                          = "1.0.2"
   name                             = "app"
   environment                      = "test"
-  label_order                      = ["name", "environment"]
-  create_log_analytics_workspace   = true
+  location                         = module.resource_group.resource_group_location
+  label_order                      = ["name", "environment", "location"]
   log_analytics_workspace_sku      = "PerGB2018"
   log_analytics_workspace_id       = module.log-analytics.workspace_id
   resource_group_name              = module.resource_group.resource_group_name
-  log_analytics_workspace_location = module.resource_group.resource_group_location
 }
 
 module "private-dns-zone" {
   source              = "terraform-az-modules/private-dns/azurerm"
   version             = "1.0.2"
+  name        = "app"
+  environment = "test"
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
+  label_order        = ["name", "environment", "location"]
   private_dns_config = [
     {
       resource_type = "key_vault"

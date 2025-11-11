@@ -58,19 +58,21 @@ module "log-analytics" {
   version                          = "1.0.2"
   name                             = "app"
   environment                      = "test"
+  location                         = module.resource_group.resource_group_location
   label_order                      = ["name", "environment"]
-  create_log_analytics_workspace   = true
   log_analytics_workspace_sku      = "PerGB2018"
   log_analytics_workspace_id       = module.log-analytics.workspace_id
   resource_group_name              = module.resource_group.resource_group_name
-  log_analytics_workspace_location = module.resource_group.resource_group_location
 }
 
 module "private-dns-zone" {
   source              = "terraform-az-modules/private-dns/azurerm"
   version             = "1.0.2"
+  name                = "app"
+  environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
+  label_order        = ["name", "environment", "location"]
   private_dns_config = [
     {
       resource_type = "key_vault"
@@ -78,7 +80,6 @@ module "private-dns-zone" {
     }
   ]
 }
-
 # ------------------------------------------------------------------------------
 # Key Vault
 # ------------------------------------------------------------------------------
@@ -104,7 +105,7 @@ module "vault" {
       principal_id         = data.azurerm_client_config.current_client_config.object_id
     }
   }
-  private_dns_zone_ids       = module.private_dns_zone.private_dns_zone_ids.key_vault
+  private_dns_zone_ids       = module.private-dns-zone.private_dns_zone_ids.key_vault
   diagnostic_setting_enable  = true
   log_analytics_workspace_id = module.log-analytics.workspace_id
 }
