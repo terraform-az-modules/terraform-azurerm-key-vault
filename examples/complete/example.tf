@@ -54,15 +54,15 @@ module "subnet" {
 # Log Analytics
 # ------------------------------------------------------------------------------
 module "log-analytics" {
-  source                           = "terraform-az-modules/log-analytics/azurerm"
-  version                          = "1.0.2"
-  name                             = "app"
-  environment                      = "test"
-  location                         = module.resource_group.resource_group_location
-  label_order                      = ["name", "environment"]
-  log_analytics_workspace_sku      = "PerGB2018"
-  log_analytics_workspace_id       = module.log-analytics.workspace_id
-  resource_group_name              = module.resource_group.resource_group_name
+  source                      = "terraform-az-modules/log-analytics/azurerm"
+  version                     = "1.0.2"
+  name                        = "app"
+  environment                 = "test"
+  location                    = module.resource_group.resource_group_location
+  label_order                 = ["name", "environment"]
+  log_analytics_workspace_sku = "PerGB2018"
+  log_analytics_workspace_id  = module.log-analytics.workspace_id
+  resource_group_name         = module.resource_group.resource_group_name
 }
 
 module "private-dns-zone" {
@@ -72,7 +72,7 @@ module "private-dns-zone" {
   environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
-  label_order        = ["name", "environment", "location"]
+  label_order         = ["name", "environment", "location"]
   private_dns_config = [
     {
       resource_type = "key_vault"
