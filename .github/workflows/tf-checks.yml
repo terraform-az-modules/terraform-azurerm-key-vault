@@ -11,7 +11,7 @@ jobs:
     with:
       working_directory: './examples/complete/'
 
-  key-vault-with-access-policy:
+  key-vault-with-access-policy-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@master
     with:
       working_directory: 'examples/key_vault_with_access_policy/'
