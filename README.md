@@ -57,7 +57,7 @@ This table contains both Prerequisites and Providers:
 | Description   | Name                                       | Version   |
 |:-------------:|:-------------------------------------------:|:---------:|
 | **Prerequisite** | [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) | >= 1.6.6 |
-| **Provider** | [azure](https://azure.microsoft.com/) | >= 3.90.0 |
+| **Provider** | [azure](https://azure.microsoft.com/) | >= 3.116.0 |
 
 
 ## Modules
