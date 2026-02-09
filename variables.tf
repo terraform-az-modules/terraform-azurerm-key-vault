@@ -123,7 +123,7 @@ variable "enable_rbac_authorization" {
 variable "public_network_access_enabled" {
   type        = bool
   default     = false
-  description = "(Optional) Whether public network access is allowed for this Key Vault. Defaults to true"
+  description = "(Optional) Whether public network access is allowed for this Key Vault. Defaults to false"
 }
 
 variable "sku_name" {
@@ -153,8 +153,8 @@ variable "network_acls" {
   })
   default = {
     bypass                     = "AzureServices"
-    default_action             = "Allow"
-    ip_rules                   = ["0.0.0.0/0"]
+    default_action             = "Deny"
+    ip_rules                   = []
     virtual_network_subnet_ids = []
   }
   description = <<EOT
@@ -297,7 +297,7 @@ variable "log_analytics_destination_type" {
 variable "metric_enabled" {
   type        = bool
   default     = true
-  description = "Boolean flag to specify whether Metrics should be enabled for the Key Vault. Defaults to true."
+  description = "Boolean flag to specify whether Metrics should be enabled for the Key Vault. Defaults to false."
 }
 
 variable "kv_logs" {
