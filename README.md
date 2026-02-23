@@ -57,7 +57,7 @@ This table contains both Prerequisites and Providers:
 | Description   | Name                                       | Version   |
 |:-------------:|:-------------------------------------------:|:---------:|
 | **Prerequisite** | [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) | >= 1.6.6 |
-| **Provider** | [azure](https://azure.microsoft.com/) | >= 3.116.0 |
+| **Provider** | [azure](https://azure.microsoft.com/) | >= 3.90.0 |
 
 
 ## Modules
@@ -209,8 +209,3 @@ Write to us at [hello@clouddrove.com](hello@clouddrove.com).
   [email]: <>
   [github]: https://github.com/terraform-az-modules
   [terraform_modules]: https://github.com/orgs/terraform-az-modules/repositories
-
-
-## Security defaults updated (2026-02)
-
-This module/examples include hardening updates to reduce insecure-by-default posture. If you relied on previous permissive defaults, set variables explicitly during upgrade.
