@@ -94,7 +94,7 @@ module "vault" {
   subnet_id                     = module.subnet.subnet_ids["subnet1"]
   enable_rbac_authorization     = false
   private_dns_zone_ids          = module.private-dns-zone.private_dns_zone_ids.key_vault
-  public_network_access_enabled = true
+  public_network_access_enabled = false
   enable_access_policies        = true
   access_policies = {
     "app-server" = {
