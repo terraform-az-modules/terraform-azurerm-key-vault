@@ -17,7 +17,7 @@ jobs:
     with:
       working_directory: 'examples/key_vault_with_access_policy/'
       provider: none
-  
+
 # Seperate Job for TFlint workflow call
   tf-lint:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@a9fc2fae0eceafcdd4a812c23a3febd9c416428b
