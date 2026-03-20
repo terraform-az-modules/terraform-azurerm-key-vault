@@ -13,4 +13,4 @@ jobs:
     uses: clouddrove/github-shared-workflows/.github/workflows/pr-checks.yml@a9fc2fae0eceafcdd4a812c23a3febd9c416428b
     secrets: inherit
     with:
-      subjectPattern: '^.+$'
+      subjectPattern: '.+'
