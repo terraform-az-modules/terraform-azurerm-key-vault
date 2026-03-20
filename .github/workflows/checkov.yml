@@ -7,7 +7,7 @@ on:
 
 jobs:
   checkov:
-    uses: clouddrove/github-shared-workflows/.github/workflows/checkov.yml@88efd7724e007c8f721a219498be29e0c9ad471b
+    uses: clouddrove/github-shared-workflows/.github/workflows/checkov.yml@a9fc2fae0eceafcdd4a812c23a3febd9c416428b
     with:
       directory: '.'
       continue_on_error: 'true'
