@@ -8,7 +8,7 @@ jobs:
 # Update 'Job name' and 'terraform_directory' as needed based on the module structure.
   complete-example:
     if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@88efd7724e007c8f721a219498be29e0c9ad471b
     with:
       provider: 'azurerm'
       terraform_directory: 'examples/complete'
@@ -19,7 +19,7 @@ jobs:
   
   key-vault-with-access-policy-example:
     if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@88efd7724e007c8f721a219498be29e0c9ad471b
     with:
       provider: 'azurerm'
       terraform_directory: 'examples/key_vault_with_access_policy'
