@@ -10,13 +10,13 @@ jobs:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@88efd7724e007c8f721a219498be29e0c9ad471b
     with:
       working_directory: './examples/complete/'
-      provider: none
+      provider: azurerm
 
   key-vault-with-access-policy-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@88efd7724e007c8f721a219498be29e0c9ad471b
     with:
       working_directory: 'examples/key_vault_with_access_policy/'
-      provider: none
+      provider: azurerm
   
 # Seperate Job for TFlint workflow call
   tf-lint:
