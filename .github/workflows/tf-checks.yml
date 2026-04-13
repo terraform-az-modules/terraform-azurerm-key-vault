@@ -1,9 +1,9 @@
 name: tf-checks
+
 on:
-  push:
-    branches: [ master ]
   pull_request:
   workflow_dispatch:
+
 jobs:
 # Update 'Job name' and 'working_directory' as needed based on the module structure.
   complete-example:
@@ -20,6 +20,6 @@ jobs:
 
 # Seperate Job for TFlint workflow call
   tf-lint:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@38cd6ebc01e8b5b14ac9a90a5579d04b02e79099
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@v2
     secrets:
       GITHUB: ${{ secrets.GITHUB }}
