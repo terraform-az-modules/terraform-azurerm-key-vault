@@ -55,7 +55,7 @@ module "subnet" {
 # ------------------------------------------------------------------------------
 module "log-analytics" {
   source                      = "terraform-az-modules/log-analytics/azurerm"
-  version                     = "1.0.3"
+  version                     = "2.0.0"
   name                        = "app"
   environment                 = "test"
   location                    = module.resource_group.resource_group_location
@@ -67,7 +67,7 @@ module "log-analytics" {
 
 module "private-dns-zone" {
   source              = "terraform-az-modules/private-dns/azurerm"
-  version             = "1.0.4"
+  version             = "1.0.6"
   name                = "app"
   environment         = "test"
   resource_group_name = module.resource_group.resource_group_name
