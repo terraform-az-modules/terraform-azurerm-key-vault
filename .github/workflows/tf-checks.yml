@@ -7,13 +7,13 @@ on:
 jobs:
 # Update 'Job name' and 'working_directory' as needed based on the module structure.
   complete-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@f1ee54ff38b0eaaed9be6f5d184438c9b8a5b7eb
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@0d9fa74b29d820d7ffe031704ec53bf7653c97c3
     with:
       working_directory: './examples/complete/'
       provider: none
 
   key-vault-with-access-policy-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@f1ee54ff38b0eaaed9be6f5d184438c9b8a5b7eb
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@0d9fa74b29d820d7ffe031704ec53bf7653c97c3
     with:
       working_directory: 'examples/key_vault_with_access_policy/'
       provider: none
