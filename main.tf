@@ -42,14 +42,6 @@ resource "azurerm_key_vault" "key_vault" {
       virtual_network_subnet_ids = acl.value.virtual_network_subnet_ids
     }
   }
-  dynamic "contact" {
-    for_each = var.certificate_contacts
-    content {
-      email = contact.value.email
-      name  = contact.value.name
-      phone = contact.value.phone
-    }
-  }
 
   dynamic "access_policy" {
     for_each = var.enable_access_policies ? var.access_policies : {}
@@ -69,6 +61,27 @@ resource "azurerm_key_vault" "key_vault" {
     ]
   }
 }
+
+##-----------------------------------------------------------------------------
+# Key Vault certificate contacts - Create certificate contacts for the Key Vault
+##-----------------------------------------------------------------------------
+
+resource "azurerm_key_vault_certificate_contacts" "this" {
+  count = length(var.certificate_contacts) > 0 ? 1 : 0
+
+  key_vault_id = azurerm_key_vault.key_vault[count.index].id
+
+  dynamic "contact" {
+    for_each = var.certificate_contacts
+
+    content {
+      email = contact.value.email
+      name  = contact.value.name
+      phone = contact.value.phone
+    }
+  }
+}
+
 
 ##-----------------------------------------------------------------------------
 # Key Vault Secrets - Create secrets in the Key Vault
